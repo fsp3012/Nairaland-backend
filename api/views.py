@@ -68,6 +68,16 @@ def edit_post(request, id):
 
 
 @api_view(['GET'])
+def getUserPosts(request):
+    author = request.user
+    getUser = Posts.objects.filter(author=author)
+    serializer = PostsSerializer(getUserPosts, many=True)
+    return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+@api_view(['GET'])
 def trendingView(request):
     if request.method == 'GET':
         post = Posts.objects.filter(trending=True)

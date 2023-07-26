@@ -8,6 +8,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     path('posts/', views.all_posts),
     path('create/', views.create_post),
+    path('user/', views.getUserPosts),
     path('trending/', views.trendingView),
     path('latest/', views.latestPosts),
     path('edit/<int:id>/', views.edit_post),
