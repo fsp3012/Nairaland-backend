@@ -27,9 +27,9 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-kq-(d8y57z80wen1#zvj0+qm9w(=+vw^mdfj410b46*imiw256'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -66,8 +66,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://localhost:3001',
+    'http://localhost:5173',
+    'http://localhost:5174',
 ]
 
 
