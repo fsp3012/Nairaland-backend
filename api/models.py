@@ -11,3 +11,7 @@ class Posts(models.Model):
     created_at = models.DateField(auto_now=True)
     story = models.TextField(null=False)
     trending = models.BooleanField(default=False)
+
+
+class Meta:
+    ordering= ['-created_at']

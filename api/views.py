@@ -68,16 +68,18 @@ def edit_post(request, id):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getUserPosts(request):
     author = request.user
     getUser = Posts.objects.filter(author=author)
-    serializer = PostsSerializer(getUserPosts, many=True)
+    serializer = PostsSerializer(getUser, many=True)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
 
 
 @api_view(['GET'])
+
 def trendingView(request):
     if request.method == 'GET':
         post = Posts.objects.filter(trending=True)
@@ -88,7 +90,7 @@ def trendingView(request):
 @api_view(['GET'])
 def latestPosts(request):
     if request.method == 'GET':
-        post = Posts.objects.all().order_by('created_at')
+        post = Posts.objects.all().order_by('-created_at')
         serializer = PostsSerializer(post, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)    
 
