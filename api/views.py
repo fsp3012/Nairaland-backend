@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Posts
 from .serializers import PostsSerializer
 from rest_framework import status
+from . models import Posts
 
 # Create your views here.
 
@@ -92,7 +93,20 @@ def latestPosts(request):
     if request.method == 'GET':
         post = Posts.objects.all().order_by('-created_at')
         serializer = PostsSerializer(post, many=True)
-        return Response(data=serializer.data, status=status.HTTP_200_OK)    
+        return Response(data=serializer.data, status=status.HTTP_200_OK)   
+
+
+#imports all the photos and save it on the database
+
+@api_view(['GET'])
+def images(request):
+    photo = Posts.objects.all()
+    cloudinary_img = {'photo':photo}
+    return render(request, '', cloudinary_img)
+    
+
+
+
 
 
 

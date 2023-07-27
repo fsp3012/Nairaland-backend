@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 
 # Create your models here.
@@ -11,6 +12,9 @@ class Posts(models.Model):
     created_at = models.DateField(auto_now=True)
     story = models.TextField(null=False)
     trending = models.BooleanField(default=False)
+    # image = models.ImageField(upload_to='', default='')
+    image = CloudinaryField('image', default='')
+    
 
 
 class Meta:

@@ -1,6 +1,10 @@
 from django.urls import path,include
 from . import views
 
+# from django.conf import settings
+# from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('', views.home ),
     path('testing/', views.testing),
@@ -13,3 +17,4 @@ urlpatterns = [
     path('latest/', views.latestPosts),
     path('edit/<int:id>/', views.edit_post),
 ]
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
