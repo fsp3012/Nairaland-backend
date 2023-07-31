@@ -6,6 +6,7 @@ from .models import Posts
 from .serializers import PostsSerializer
 from rest_framework import status
 from . models import Posts
+from rest_framework.pagination import PageNumberPagination
 
 # Create your views here.
 
@@ -14,21 +15,25 @@ def home(request):
     print(request.method)
     return Response({'name': 'Nairaland'})
 
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-def testing(request):
-    if request.method == 'GET':
-        return Response({'message': 'Hello, this ia a get request'})
-    elif request.method == 'POST':
-        return Response({'message': 'Hello, this ia a post request'})
+# @api_view(['GET', 'POST'])
+# @permission_classes([IsAuthenticated])
+# def testing(request):
+#     if request.method == 'GET':
+#         return Response({'message': 'Hello, this ia a get request'})
+#     elif request.method == 'POST':
+#         return Response({'message': 'Hello, this ia a post request'})
 
-    return Response({'Info': 'Welcome'})
+#     return Response({'Info': 'Welcome'})
 
 @api_view(['GET'])
 def all_posts(request):
     posts = Posts.objects.all()
-    serializer = PostsSerializer(posts, many=True)
-    return Response(data=serializer.data, status=status.HTTP_200_OK)
+    paginator = PageNumberPagination()
+    paginator.page_size = 10
+    paginated_posts = paginator.paginate_queryset(posts, request)
+    serializer = PostsSerializer(paginated_posts, many=True)
+    # return Response(data=serializer.data, status=status.HTTP_200_OK)
+    return paginator.get_paginated_response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET','POST'])
@@ -75,8 +80,6 @@ def getUserPosts(request):
     getUser = Posts.objects.filter(author=author)
     serializer = PostsSerializer(getUser, many=True)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
-
-
 
 
 @api_view(['GET'])
