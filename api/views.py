@@ -15,15 +15,15 @@ def home(request):
     print(request.method)
     return Response({'name': 'Nairaland'})
 
-# @api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticated])
-# def testing(request):
-#     if request.method == 'GET':
-#         return Response({'message': 'Hello, this ia a get request'})
-#     elif request.method == 'POST':
-#         return Response({'message': 'Hello, this ia a post request'})
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def testing(request):
+    if request.method == 'GET':
+        return Response({'message': 'Hello, this ia a get request'})
+    elif request.method == 'POST':
+        return Response({'message': 'Hello, this ia a post request'})
 
-#     return Response({'Info': 'Welcome'})
+    return Response({'Info': 'Welcome'})
 
 @api_view(['GET'])
 def all_posts(request):
