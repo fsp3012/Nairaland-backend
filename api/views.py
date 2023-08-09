@@ -40,7 +40,7 @@ def all_posts(request):
 @permission_classes([IsAuthenticated])
 def create_post(request):
     if request.method == 'GET':
-        return Response({'message': 'Provide Information'})
+        return Response({'message': 'Daniel Provide Information'})
     elif request.method == 'POST':
         post = request.data
         author = request.user
@@ -83,7 +83,6 @@ def getUserPosts(request):
 
 
 @api_view(['GET'])
-
 def trendingView(request):
     if request.method == 'GET':
         post = Posts.objects.filter(trending=True)
@@ -107,6 +106,14 @@ def images(request):
     cloudinary_img = {'photo':photo}
     return render(request, '', cloudinary_img)
     
+@api_view(['GET'])
+def Post_tags(request, tag):
+    Posttags = Posts.objects.filter(tags=tag)
+    paginator=PageNumberPagination()
+    paginator.page_size=5
+    tagger=paginator.paginate_queryset(Posttags, request)
+    serializer= PostsSerializer(tagger, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 

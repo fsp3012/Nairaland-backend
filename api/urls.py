@@ -15,6 +15,7 @@ urlpatterns = [
     path('userposts/', views.getUserPosts),
     path('trending/', views.trendingView),
     path('latest/', views.latestPosts),
+    path('tag/<str:tag>/', views.edit_post),
     path('edit/<int:id>/', views.edit_post),
 ]
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
