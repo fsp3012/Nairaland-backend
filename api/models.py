@@ -14,8 +14,12 @@ class Posts(models.Model):
     trending = models.BooleanField(default=False)
     # image = models.ImageField(upload_to='', default='')
     image = CloudinaryField('image', default='')
+
+
+    class Meta:
+         ordering= ['-created_at']
+   
     
 
 
-class Meta:
-    ordering= ['-created_at']
+    

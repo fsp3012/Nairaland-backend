@@ -74,7 +74,6 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://localhost:3000',
-    'https://comforting-souffle-589f2e.netlify.app/',
     'https://comforting-souffle-589f2e.netlify.app',
 ]
 
