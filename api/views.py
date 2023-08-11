@@ -53,13 +53,18 @@ def create_post(request):
                 'message': 'Something Went Wrong', 'status': False}, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def edit_post(request, id):
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def single_post(request, id):
     if request.method == 'GET':
         post = Posts.objects.get(id=id)
         serializer = PostsSerializer(post, many=False)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-    elif request.method == 'PUT':
+
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def edit_post(request, id):
+    if request.method == 'PUT':
         post = Posts.objects.get(id=id)
         serializer = PostsSerializer(instance=post, data=request.data, many=False)
         if serializer.is_valid():
